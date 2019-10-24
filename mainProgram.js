@@ -33,7 +33,7 @@ void loop() {
 
   Serial.println(sensor);
   
-  if (sensor == 1)
+  if (sensor == 0)
   {
     extend(3000);
     retract(3000);  
