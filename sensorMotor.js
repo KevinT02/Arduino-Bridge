@@ -1,4 +1,3 @@
-
 int forward = 10;
 int backward = 11;
 
@@ -29,7 +28,7 @@ void loop() {
 
   Serial.println(sensor);
   
-  if (sensor == 1)
+  if (sensor == 0)
   {
     extend(3000);
     retract(3000);  
@@ -68,6 +67,3 @@ void halt()
   analogWrite(forward,LOW);
   analogWrite(backward,LOW);
 }
-
-
-
