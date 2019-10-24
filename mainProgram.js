@@ -46,3 +46,27 @@ void looop()
   delay(1000) ;
 }
 
+//---------------FUNCTIONS-----------------//
+
+void extend(int time)
+{
+  digitalWrite(forward,HIGH);
+  delay(time);
+  digitalWrite(forward,LOW);
+  delay(time);
+}
+
+void retract(int time)
+{
+  digitalWrite(backward,HIGH);
+  delay(time);
+  digitalWrite(backward,LOW);
+  delay(time);
+}
+
+void halt()
+{
+  analogWrite(forward,LOW);
+  analogWrite(backward,LOW);
+}
+
