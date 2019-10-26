@@ -1,0 +1,64 @@
+
+class Motor
+{
+  constructor(pin1, pin2, time) {
+    this.pin1 = pin1;
+    this.pin2 = pin2;
+    this.time = time;
+  }
+  Motor.forward = function(){
+  digitalWrite(pin1, HIGH);
+  delay(time);
+  digitalWrite(pin2, LOW);
+  } 
+  Motor.backward = function(){
+  digitalWrite(pin2, HIGH);
+  delay(time);
+  digitalWrite(pin2, LOW); 
+  }
+  
+ }
+ 
+}
+
+
+class LineSens
+{
+  constructor(redPin){
+    this.redPin
+  }
+
+  LineSens.prep = function(){
+    //Charge capacitor for 1ms
+  pinMode(2, OUTPUT);
+  digitalWrite(2, HIGH);
+  delay(1);
+
+  //Wait 1ms and let capacitor discharge
+  pinMode(2, INPUT);
+  delay(1);
+  
+  }
+
+  
+  LineSens.print = function(){
+    byte sensor = digitalRead(2);
+    Serial.println(sensor);
+  }
+}
+
+
+class AvoidSens
+{
+  
+}
+
+class SonicSens
+{
+  
+}
+
+
+
+
+
