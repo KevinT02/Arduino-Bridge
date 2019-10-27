@@ -1,8 +1,20 @@
 
-int motor1for = 9;
-int motor1bac = 10;
+int motor1for = 6;
+int motor1bac = 7;
 int motor2for = 12;
 int motor2bac = 13;
+
+const int trigPin = 9;
+const int echoPin = 10;
+
+int detector = 8; // define the obstacle avoidance sensor interface
+
+// defines variables
+long duration;
+int distance;
+
+int val ;
+
 
 void setup() {
   Serial.begin(9600);
@@ -12,33 +24,88 @@ void setup() {
   pinMode(motor1bac, OUTPUT); 
   pinMode(motor2for, OUTPUT);
   pinMode(motor2bac, OUTPUT);
-  Serial.println("Testing QTI Sensor");
-  delay(1);
+
+  pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
+  pinMode(echoPin, INPUT); // Sets the echoPin as an Input
+
+  pinMode (detector, INPUT) ;// define the obstacle avoidance sensor output interface
+
+
   }
 
 void loop() {
 
-
-  //-- Charge capacitor for 1ms
+  //---Prepping QTI Line Sensor---//
+  
+  //Charge capacitor for 1ms
   pinMode(2, OUTPUT);
   digitalWrite(2, HIGH);
   delay(1);
 
-  //-- Wait 1ms and let capacitor discharge
+  //Wait 1ms and let capacitor discharge
   pinMode(2, INPUT);
   delay(1);
 
-  //-- read pin 2
+  //Read pin 2 values
   byte sensor = digitalRead(2);
 
   Serial.println(sensor);
+
+  // Clears the trigPin
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  // Sets the trigPin on HIGH state for 10 micro seconds
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration = pulseIn(echoPin, HIGH);
+  // Calculating the distance
+  distance= duration*0.034/2;
   
-  if (sensor == 0)
+  Serial.println(distance);
+
+
+
+  //----------Motion---------//
+
+
+
+
+  //IR Obstacle Avoidance
+  val = digitalRead (detector) ;
+  
+  if (val == HIGH) // When the obstacle avoidance sensor detects a signal, LED flashes
   {
     extend(3000);
-    retract(3000);  
-    
-    
+    retract(3000);   
+  }
+  else
+  {
+    halt(); 
+  }
+  
+  
+  //QTI Sensor
+  if (sensor == 1)
+  {
+    extend(3000);
+    retract(3000);    
+  }
+  
+  else
+  {
+    halt(); 
+  }
+
+  Serial.println(val);
+
+
+  //Ultra Sonic Sensor
+  if (distance < 15)
+  {
+    extend(3000);
+    retract(3000);      
   }
   
   else
@@ -48,7 +115,10 @@ void loop() {
    
 }
 
-  
+
+
+
+//-----------------------------------------//  
 //---------------FUNCTIONS-----------------//
 
 void extend(int time)
@@ -78,8 +148,3 @@ void halt()
   analogWrite(motor2for, LOW);
   analogWrite(motor2bac, LOW);
 }
-
-
-
-
-
