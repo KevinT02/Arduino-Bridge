@@ -62,15 +62,15 @@ void loop() {
 
   // Clears the trigPin
   digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
+  delay(2);
   // Sets the trigPin on HIGH state for 10 micro seconds
   digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
+  delay(10);
   digitalWrite(trigPin, LOW);
   // Reads the echoPin, returns the sound wave travel time in microseconds
   duration = pulseIn(echoPin, HIGH);
   // Calculating the distance
-  distance = duration*0.034/2;
+  int distance = duration*0.034/2;
   
 
   //Read pin 2 values
@@ -93,24 +93,20 @@ void loop() {
     retract(3000);    
   }
   
+  //Ultra Sonic Sensor
+  else if (distance < 15)
+  {
+    extend(3000);
+    retract(3000);      
+  }
+  
   else
   {
     halt(); 
   }
 
 
-//  //Ultra Sonic Sensor
-//  if (distance < 15)
-//  {
-//    extend(3000);
-//    retract(3000);      
-//  }
-//  
-//  else
-//  {
-//    halt(); 
-//  }
-   
+
 }
 
 
