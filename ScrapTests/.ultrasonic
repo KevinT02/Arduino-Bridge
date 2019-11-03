@@ -1,0 +1,54 @@
+void loop() {
+
+  //ultrasonic Sensor pins
+int trigPin = 11;    // Trigger
+int echoPin = 12;    // Echo
+
+// defines variables for Ultrasonic Sensor
+long duration, cm, inches;
+
+
+void setup() {
+  //Serial Port begin
+  Serial.begin (9600);
+  Serial.println("Begin Ultrassonic Test"
+
+  //Define inputs and outputs for ultrasonic
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  
+}
+
+ 
+void loop() {
+ 
+  //---Prepares the Ultrasonic Sensor---//
+    
+  digitalWrite(trigPin, LOW); // Give a short LOW pulse beforehand to refresh before a HIGH pulse
+  delayMicroseconds(5);
+  digitalWrite(trigPin, HIGH); // The sensor is triggered by a HIGH pulse of 10 or more microseconds
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+ 
+  // Read the signal from the sensor: a HIGH pulse whose
+  // duration is the time (in microseconds) from the sending
+  // of the ping to the reception of its echo off of an object.
+  pinMode(echoPin, INPUT);
+  duration = pulseIn(echoPin, HIGH);
+ 
+  // Convert the time into a distance
+  // The speed of sound is: 343m/s = 0.0343 cm/uS = 1/29.1 cm/uS 
+  // or in inches: 13503.9in/s = 0.0135in/uS = 1/74in/uS  
+  
+  cm = (duration/2) / 29.1; // Divide by 29.1 or multiply by 0.0343
+
+  //Prints variable distance in centimeters into monitor
+  Serial.print(" Distance: ");
+  Serial.print(cm);
+  Serial.print("cm");
+  Serial.println();
+  
+  delay(250);
+
+
+}
