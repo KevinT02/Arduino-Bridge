@@ -1,0 +1,119 @@
+//motor pins
+int motorfor = 6;
+int motorbac = 7;
+
+//ultrasonic Sensor pins
+int trigPin = 11;    // Trigger
+int echoPin = 12;    // Echo
+
+// defines variables for Ultrasonic Sensor
+long duration, cm, inches;
+
+
+void setup() {
+  //Serial Port begin
+  Serial.begin (9600);
+
+  //Define inputs and outputs for ultrasonic
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  
+  //Define inputs and outputs for motors
+  pinMode(motorfor, OUTPUT);
+  pinMode(motorbac, OUTPUT); 
+
+}
+
+//-----------------------------------------//  
+//---------------FUNCTIONS-----------------//
+
+void extend(int time)
+{
+  digitalWrite(motorfor,HIGH);
+  delay(time);
+}
+
+void retract(int time)
+{
+  digitalWrite(motorbac,HIGH);
+  delay(time);
+
+}
+
+void halt()
+{
+  analogWrite(motorfor,LOW);
+  analogWrite(motorbac,LOW);
+}
+
+ 
+void loop() {
+  //Charge capacitor for 1ms
+  pinMode(2, OUTPUT);
+  digitalWrite(2, HIGH);
+  delay(1);
+
+  //Wait 1ms and let capacitor discharge
+  pinMode(2, INPUT);
+  delay(1);
+  
+  //Read pin 2 values
+  byte sensor = digitalRead(2);
+  Serial.print("Sensor: ");
+  Serial.print(sensor); 
+  Serial.print("");
+  delay(255);
+  
+  // The sensor is triggered by a HIGH pulse of 10 or more microseconds.
+  // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(5);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+ 
+  // Read the signal from the sensor: a HIGH pulse whose
+  // duration is the time (in microseconds) from the sending
+  // of the ping to the reception of its echo off of an object.
+  pinMode(echoPin, INPUT);
+  duration = pulseIn(echoPin, HIGH);
+ 
+  // Convert the time into a distance
+  //The speed of sound is: 343m/s = 0.0343 cm/uS = 1/29.1 cm/uS 
+  //or in inches: 13503.9in/s = 0.0135in/uS = 1/74in/uS
+  
+  cm = (duration/2) / 29.1;     // Divide by 29.1 or multiply by 0.0343
+  inches = (duration/2) / 74;   // Divide by 74 or multiply by 0.0135
+
+
+  Serial.print(" Distance: ");
+  Serial.print(inches);
+  Serial.print("in, ");
+  Serial.print(cm);
+  Serial.print("cm");
+  Serial.println();
+  
+  delay(250);
+
+  //----------Motion---------//
+ 
+  //QTI Sensor
+  if (sensor == 1)
+  {
+    extend(3000);
+    retract(3000);
+  }
+  
+  //Ultra Sonic Sensor
+  else if (cm >15)
+  {
+    extend(3000);
+    retract(3000);      
+  }
+  
+  else
+  {
+    halt();
+  }
+
+}
