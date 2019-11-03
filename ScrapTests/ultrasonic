@@ -1,0 +1,23 @@
+void setup() {
+ 
+ Serial.begin(9600);
+ Serial.println("Testing QTI Sensor");
+ delay(1);
+
+}
+
+void loop() {
+
+  pinMode(2, OUTPUT);
+  digitalWrite(2, HIGH);
+  delay(1);
+
+  pinMode(2, INPUT);
+  delay(1);
+
+  byte sensor = digitalRead(2);
+  Serial.println(sensor);
+  delay(50);
+
+
+}
