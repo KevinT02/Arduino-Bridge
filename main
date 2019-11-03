@@ -29,25 +29,29 @@ void setup() {
 
 void extend(int time)
 {
-  digitalWrite(motorfor,HIGH);
-  delay(time);
+  digitalWrite(motorfor,HIGH); //spins motor clockwise
+  delay(time); //delays based on the variable time
 }
 
 void retract(int time)
 {
-  digitalWrite(motorbac,HIGH);
-  delay(time);
+  digitalWrite(motorbac,HIGH); //spins motor counter clockwise
+  delay(time); //delays based on the variable time
 
 }
 
 void halt()
 {
-  analogWrite(motorfor,LOW);
-  analogWrite(motorbac,LOW);
+  //stops power going into motor thus, stopping it
+  digitalWrite(motorfor,LOW); 
+  digitalWrite(motorbac,LOW);
 }
 
  
 void loop() {
+
+  //---Prepares IQ Sensor---//
+  
   //Charge capacitor for 1ms
   pinMode(2, OUTPUT);
   digitalWrite(2, HIGH);
@@ -57,18 +61,19 @@ void loop() {
   pinMode(2, INPUT);
   delay(1);
   
-  //Read pin 2 values
+  //Read pin 2 values and prints into the monitor
   byte sensor = digitalRead(2);
   Serial.print("Sensor: ");
   Serial.print(sensor); 
   Serial.print("");
   delay(255);
+
   
-  // The sensor is triggered by a HIGH pulse of 10 or more microseconds.
-  // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
-  digitalWrite(trigPin, LOW);
+  //---Prepares the Ultrasonic Sensor---//
+    
+  digitalWrite(trigPin, LOW); // Give a short LOW pulse beforehand to refresh before a HIGH pulse
   delayMicroseconds(5);
-  digitalWrite(trigPin, HIGH);
+  digitalWrite(trigPin, HIGH); // The sensor is triggered by a HIGH pulse of 10 or more microseconds
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
  
@@ -79,16 +84,13 @@ void loop() {
   duration = pulseIn(echoPin, HIGH);
  
   // Convert the time into a distance
-  //The speed of sound is: 343m/s = 0.0343 cm/uS = 1/29.1 cm/uS 
-  //or in inches: 13503.9in/s = 0.0135in/uS = 1/74in/uS
+  // The speed of sound is: 343m/s = 0.0343 cm/uS = 1/29.1 cm/uS 
+  // or in inches: 13503.9in/s = 0.0135in/uS = 1/74in/uS  
   
-  cm = (duration/2) / 29.1;     // Divide by 29.1 or multiply by 0.0343
-  inches = (duration/2) / 74;   // Divide by 74 or multiply by 0.0135
+  cm = (duration/2) / 29.1; // Divide by 29.1 or multiply by 0.0343
 
-
+  //Prints variable distance in centimeters into monitor
   Serial.print(" Distance: ");
-  Serial.print(inches);
-  Serial.print("in, ");
   Serial.print(cm);
   Serial.print("cm");
   Serial.println();
