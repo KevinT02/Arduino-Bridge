@@ -31,14 +31,14 @@ void setup() {
 //-----------------------------------------//  
 //---------------FUNCTIONS-----------------//
 
-void extend1(int motor, int time)
+void extend1(int time)
 {
   delay(time);
   digitalWrite(motor1for,HIGH); //spins motor clockwise
   delay(time); //delays based on the variable time
 }
 
-void retract1(int motor, int time)
+void retract1(int time)
 {
   delay(time);
   digitalWrite(motor1bac,HIGH); //spins motor counter clockwise
@@ -46,14 +46,14 @@ void retract1(int motor, int time)
 
 }
 
-void extend2(int motor, int time)
+void extend2(int time)
 {
   delay(time);
   digitalWrite(motor2for,HIGH); //spins motor clockwise
   delay(time); //delays based on the variable time
 }
 
-void retract2(int motor, int time)
+void retract2(int time)
 {
   delay(time);
   digitalWrite(motor2bac,HIGH); //spins motor counter clockwise
