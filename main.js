@@ -1,6 +1,8 @@
 //motor pins
-int motorfor = 6;
-int motorbac = 7;
+int motor1for = 6;
+int motor1bac = 7;
+int motor2for = 8;
+int motor2bac = 9;
 
 //ultrasonic Sensor pins
 int trigPin = 11;    // Trigger
@@ -19,24 +21,42 @@ void setup() {
   pinMode(echoPin, INPUT);
   
   //Define inputs and outputs for motors
-  pinMode(motorfor, OUTPUT);
-  pinMode(motorbac, OUTPUT); 
+  pinMode(motor1for, OUTPUT);
+  pinMode(motor1bac, OUTPUT); 
+  pinMode(motor2for, OUTPUT);
+  pinMode(motor2bac, OUTPUT); 
 
 }
 
 //-----------------------------------------//  
 //---------------FUNCTIONS-----------------//
 
-void extend(int time)
+void extend1(int time)
 {
-  digitalWrite(motorfor,HIGH); //spins motor clockwise
+  delay(time); //delays based on the variable time
+  digitalWrite(motor1for,HIGH); //spins motor clockwise
   delay(time); //delays based on the variable time
 }
 
-void retract(int time)
+void retract1(int time)
 {
-  
-  digitalWrite(motorbac,HIGH); //spins motor counter clockwise
+  delay(time); //delays based on the variable time
+  digitalWrite(motor1bac,HIGH); //spins motor counter clockwise
+  delay(time); //delays based on the variable time
+
+}
+
+void extend2(int time)
+{
+  delay(time); //delays based on the variable time
+  digitalWrite(motor2for,HIGH); //spins motor clockwise
+  delay(time); //delays based on the variable time
+}
+
+void retract2(int time)
+{
+  delay(time); //delays based on the variable time
+  digitalWrite(motor2bac,HIGH); //spins motor counter clockwise
   delay(time); //delays based on the variable time
 
 }
@@ -44,8 +64,10 @@ void retract(int time)
 void halt()
 {
   //stops power going into motor thus, stopping it
-  digitalWrite(motorfor,LOW); 
-  digitalWrite(motorbac,LOW);
+  digitalWrite(motor1for,LOW); 
+  digitalWrite(motor1bac,LOW);
+  digitalWrite(motor2for,LOW); 
+  digitalWrite(motor2bac,LOW);
 }
 
  
@@ -55,6 +77,7 @@ void loop() {
   
   //Charge capacitor for 1ms
   pinMode(2, OUTPUT);
+  //Set pin to HIGH to charge up capacitor and start up QTI sensor
   digitalWrite(2, HIGH);
   delay(1);
 
@@ -71,10 +94,13 @@ void loop() {
 
   
   //---Prepares the Ultrasonic Sensor---//
-    
-  digitalWrite(trigPin, LOW); // Give a short LOW pulse beforehand to refresh before a HIGH pulse
+  
+  // Give a short LOW pulse beforehand to refresh before a HIGH pulse  
+  digitalWrite(trigPin, LOW); 
   delayMicroseconds(5);
-  digitalWrite(trigPin, HIGH); // The sensor is triggered by a HIGH pulse of 10 or more microseconds
+
+  // The sensor is triggered by a HIGH pulse of 10 or more microseconds
+  digitalWrite(trigPin, HIGH); 
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
  
@@ -99,19 +125,23 @@ void loop() {
   delay(250);
 
   //----------Motion---------//
- 
+
   //QTI Sensor
+  //executes code when QTI sensor sees black
   if (sensor == 1)
   {
-    halt() //make sure motor is not spinning before starting
-    extend(3000);
+    halt(); //make sure motor is not spinning before starting
+    extend1(3000);
+    extend2(3000);
   }
   
   //Ultra Sonic Sensor
+  //executes code when Ultra Sonic Sensor sees a value less than 15
   else if (cm <15)
   {
-    halt() //make sure motor is not spinning before starting
-    retract(3000);      
+    halt(); //make sure motor is not spinning before starting
+    retract1(3000); 
+    retract1(3000);      
   }
   
   else
