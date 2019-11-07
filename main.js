@@ -33,14 +33,13 @@ void setup() {
 
 void extend1(int time)
 {
-  delay(time); //delays based on the variable time
   digitalWrite(motor1for,HIGH); //spins motor clockwise
   delay(time); //delays based on the variable time
 }
 
 void retract1(int time)
 {
-  delay(time); //delays based on the variable time
+  delay(time); //delays based on the variable time, allows the second pully system to finish before starting the first
   digitalWrite(motor1bac,HIGH); //spins motor counter clockwise
   delay(time); //delays based on the variable time
 
@@ -48,14 +47,13 @@ void retract1(int time)
 
 void extend2(int time)
 {
-  delay(time); //delays based on the variable time
+  delay(time); //delays based on the variable time, allows the first pully system to finish before starting the second
   digitalWrite(motor2for,HIGH); //spins motor clockwise
   delay(time); //delays based on the variable time
 }
 
 void retract2(int time)
 {
-  delay(time); //delays based on the variable time
   digitalWrite(motor2bac,HIGH); //spins motor counter clockwise
   delay(time); //delays based on the variable time
 
@@ -132,7 +130,9 @@ void loop() {
   {
     halt(); //make sure motor is not spinning before starting
     extend1(3000);
+    halt(); //make sure motor is not spinning before starting
     extend2(3000);
+    halt(); //end of motion stops all motors
   }
   
   //Ultra Sonic Sensor
@@ -140,8 +140,10 @@ void loop() {
   else if (cm <15)
   {
     halt(); //make sure motor is not spinning before starting
-    retract1(3000); 
-    retract1(3000);      
+    retract2(3000);
+    halt(); //make sure motor is not spinning before starting
+    retract1(3000);    
+    halt(); //end of motion stops all motors
   }
   
   else
