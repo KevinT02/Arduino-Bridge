@@ -126,7 +126,7 @@ void loop() {
 
   //QTI Sensor
   //executes code when QTI sensor sees black
-  if (sensor == 1)
+  if (sensor == 0)
   {
     halt(); //make sure motor is not spinning before starting
     extend1(3000);
