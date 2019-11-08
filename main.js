@@ -1,8 +1,8 @@
 //motor pins
-int motor1for = 6;
-int motor1bac = 7;
-int motor2for = 8;
-int motor2bac = 9;
+int motor1for = 4;
+int motor1bac = 5;
+int motor2for = 6;
+int motor2bac = 7;
 
 //ultrasonic Sensor pins
 int trigPin = 11;    // Trigger
