@@ -91,10 +91,10 @@ void loop() {
   if (sensor == 0)
   {
     digitalWrite(motor1for, HIGH);
-    delay(9000);
+    delay(6500);
     digitalWrite(motor1for, LOW);
     digitalWrite(motor2for, HIGH);
-    delay(9000);
+    delay(6500);
     digitalWrite(motor2for,LOW);
   }
   
@@ -102,12 +102,12 @@ void loop() {
   //executes code when Ultra Sonic Sensor sees a value less than 15
   else if (cm <15)
   {
-    digitalWrite(motor1bac,HIGH);
-    delay(9000);
-    digitalWrite(motor1bac, LOW);
-    digitalWrite(motor2bac, HIGH);
-    delay(9000);
+    digitalWrite(motor2bac,HIGH);
+    delay(7000);
     digitalWrite(motor2bac, LOW);
+    digitalWrite(motor1bac, HIGH);
+    delay(7000);
+    digitalWrite(motor1bac, LOW);
   }
   
   else
