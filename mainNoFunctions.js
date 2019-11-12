@@ -91,10 +91,10 @@ void loop() {
   if (sensor == 0)
   {
     digitalWrite(motor1for, HIGH);
-    delay(6500);
+    delay(4000);
     digitalWrite(motor1for, LOW);
     digitalWrite(motor2for, HIGH);
-    delay(6500);
+    delay(4000);
     digitalWrite(motor2for,LOW);
   }
   
@@ -103,10 +103,10 @@ void loop() {
   else if (cm <15)
   {
     digitalWrite(motor2bac,HIGH);
-    delay(7000);
+    delay(4000);
     digitalWrite(motor2bac, LOW);
     digitalWrite(motor1bac, HIGH);
-    delay(7000);
+    delay(4000);
     digitalWrite(motor1bac, LOW);
   }
   
