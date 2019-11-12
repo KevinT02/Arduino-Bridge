@@ -125,24 +125,24 @@ void loop() {
   //----------Motion---------//
 
   //QTI Sensor
-  //executes code when QTI sensor sees black
+  //executes code when QTI sensor sees black; extends
   if (sensor == 0)
   {
     halt(); //make sure motor is not spinning before starting
-    extend1(3000);
+    extend1(4000);
     halt(); //make sure motor is not spinning before starting
-    extend2(3000);
+    extend2(4000);
     halt(); //end of motion stops all motors
   }
   
   //Ultra Sonic Sensor
-  //executes code when Ultra Sonic Sensor sees a value less than 15
+  //executes code when Ultra Sonic Sensor sees a value less than 15; retracts
   else if (cm <15)
   {
     halt(); //make sure motor is not spinning before starting
-    retract2(3000);
+    retract2(4000);
     halt(); //make sure motor is not spinning before starting
-    retract1(3000);    
+    retract1(4000);    
     halt(); //end of motion stops all motors
   }
   
