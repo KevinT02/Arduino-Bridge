@@ -87,7 +87,7 @@ void loop() {
   //----------Motion---------//
 
   //QTI Sensor
-  //executes code when QTI sensor sees black
+  //executes code when QTI sensor sees black; extends
   if (sensor == 0)
   {
     digitalWrite(motor1for, HIGH);
@@ -99,7 +99,7 @@ void loop() {
   }
   
   //Ultra Sonic Sensor
-  //executes code when Ultra Sonic Sensor sees a value less than 15
+  //executes code when Ultra Sonic Sensor sees a value less than 15; retracts
   else if (cm <15)
   {
     digitalWrite(motor2bac,HIGH);
