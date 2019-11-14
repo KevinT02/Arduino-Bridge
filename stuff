@@ -108,7 +108,7 @@ void loop() {
     delay(3000);
     digitalWrite(motor1bac, LOW);
     digitalWrite(motor2bac, HIGH);
-    delay(2000);
+    delay(1600);
     digitalWrite(motor2bac, LOW);
   }
   
