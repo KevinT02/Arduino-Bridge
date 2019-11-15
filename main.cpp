@@ -31,42 +31,29 @@ void setup() {
 //-----------------------------------------//  
 //---------------FUNCTIONS-----------------//
 
-void extend1(int time)
+void extend(int time1, int time2)
 {
-  digitalWrite(motor1for,HIGH); //spins motor clockwise
-  delay(time); //delays based on the variable time
+  digitalWrite(motor2for, HIGH);
+  delay(time1);
+  digitalWrite(motor2for, LOW);
+  digitalWrite(motor1for, HIGH);
+  digitalWrite(motor2bac, HIGH);
+  delay(time2);
+  digitalWrite(motor2bac, LOW);
+  digitalWrite(motor1for,LOW);
 }
 
-void retract1(int time)
+void retract(int time1, int time2)
 {
-  delay(time); //delays based on the variable time, allows the second pully system to finish before starting the first
-  digitalWrite(motor1bac,HIGH); //spins motor counter clockwise
-  delay(time); //delays based on the variable time
-
+  digitalWrite(motor1bac,HIGH);
+  delay(time1);
+  digitalWrite(motor1bac, LOW);
+  digitalWrite(motor2bac, HIGH);
+  delay(time2);
+  digitalWrite(motor2bac, LOW);
 }
 
-void extend2(int time)
-{
-  delay(time); //delays based on the variable time, allows the first pully system to finish before starting the second
-  digitalWrite(motor2for,HIGH); //spins motor clockwise
-  delay(time); //delays based on the variable time
-}
 
-void retract2(int time)
-{
-  digitalWrite(motor2bac,HIGH); //spins motor counter clockwise
-  delay(time); //delays based on the variable time
-
-}
-
-void halt()
-{
-  //stops power going into motor thus, stopping it
-  digitalWrite(motor1for,LOW); 
-  digitalWrite(motor1bac,LOW);
-  digitalWrite(motor2for,LOW); 
-  digitalWrite(motor2bac,LOW);
-}
 
  
 void loop() {
@@ -128,22 +115,15 @@ void loop() {
   //executes code when QTI sensor sees black; extends
   if (sensor == 0)
   {
-    halt(); //make sure motor is not spinning before starting
-    extend1(4000);
-    halt(); //make sure motor is not spinning before starting
-    extend2(4000);
-    halt(); //end of motion stops all motors
+    extend(4800, 1600);
+    
   }
   
   //Ultra Sonic Sensor
   //executes code when Ultra Sonic Sensor sees a value less than 15; retracts
   else if (cm <15)
   {
-    halt(); //make sure motor is not spinning before starting
-    retract2(4000);
-    halt(); //make sure motor is not spinning before starting
-    retract1(4000);    
-    halt(); //end of motion stops all motors
+    retract(3000, 1600);
   }
   
   else
